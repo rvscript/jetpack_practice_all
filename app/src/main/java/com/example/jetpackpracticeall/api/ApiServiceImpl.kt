@@ -3,9 +3,9 @@ package com.example.jetpackpracticeall.api
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ApiServiceImpl {
+class ApiServiceImpl {
     // https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=bBLEcjpDC28Kvv8hU9qgDWUdSAl75KcbyKa5XmnL
-    private const val BASE_URL = "https://api.nasa.gov"
+    private val BASE_URL = "https://api.nasa.gov"
 
     val apiService by lazy {
         Retrofit.Builder()
