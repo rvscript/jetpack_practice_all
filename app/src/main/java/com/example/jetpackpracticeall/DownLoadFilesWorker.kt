@@ -28,20 +28,28 @@ class DownLoadFilesWorker(
             val urls = File(URI.create(urlsFilesUri)).readLines().toTypedArray()
             val destinationDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
             destinationDirectory.mkdirs()
-            for (i in 0..1) {
+            var status = -1
+            for (i in 0..3) {
                 if (i < urls.size) {
-                    downLoadManagerRequest(urls[i], i)
+                    status = downLoadManagerRequest(urls[i], i)
                 }
             }
             // File has been downloaded successfully
-            return@withContext Result.success()
+            return@withContext when(status) {
+                DownloadManager.STATUS_FAILED -> Result.failure()
+                DownloadManager.STATUS_SUCCESSFUL -> Result.success()
+                else -> {
+                    Result.failure()
+                }
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             Result.failure()
         }
     }
     @Throws(java.lang.Exception::class)
-    private fun downLoadManagerRequest(fileUrl: String, index: Int) {
+    private fun downLoadManagerRequest(fileUrl: String, index: Int): Int {
+        var resultStatus: Int = -1
         // create dl manager request with specified url
         val request = DownloadManager.Request(fileUrl.toUri())
             .setMimeType("image/jpeg")
@@ -64,8 +72,10 @@ class DownLoadFilesWorker(
                 if(status == DownloadManager.STATUS_SUCCESSFUL || status == DownloadManager.STATUS_FAILED) {
                     downloading = false
                 }
+                resultStatus = status
             }
             cursor.close()
         }
+        return resultStatus
     }
 }

@@ -105,6 +105,12 @@ class WorkerManagementFragment : Fragment() {
                         "FILE Download SUCCEEDED",
                         Toast.LENGTH_SHORT
                     ).show()
+                } else if (workInfo != null && workInfo.state == WorkInfo.State.FAILED) {
+                    Toast.makeText(
+                        this@WorkerManagementFragment.requireContext(),
+                        "FILE Download FAILED",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }
