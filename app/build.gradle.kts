@@ -20,7 +20,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -41,8 +42,6 @@ android {
 }
 
 dependencies {
-    val lifecycle_version = "2.6.2"
-    val retrofitVer = "2.9.0"
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
@@ -52,24 +51,34 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2")
+    val coroutineCoreVersion = "1.7.1"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineCoreVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineCoreVersion")
 
     // Coroutine Lifecycle Scopes
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation ("androidx.activity:activity-ktx:1.2.2")
+    val coroutineLifecycleVersion = "2.7.0"
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$coroutineLifecycleVersion")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:$coroutineLifecycleVersion")
+    implementation ("androidx.activity:activity-ktx:1.8.2")
 
     // live-data
+    val lifecycle_version = "2.7.0"
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
     // Retrofit
+    val retrofitVer = "2.9.0"
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVer")
     implementation ("com.squareup.retrofit2:converter-gson:$retrofitVer")
-    implementation ("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.3")
+
+    // Room
+    val room_version = "2.6.1"
+    implementation ("androidx.room:room-runtime:$room_version")
+    kapt ("androidx.room:room-compiler:$room_version")
+    implementation ("androidx.room:room-ktx:$room_version")
 
     // work
-    implementation ("androidx.work:work-runtime-ktx:2.7.1")
+    implementation ("androidx.work:work-runtime-ktx:2.9.0")
 
     // testing
 
@@ -84,7 +93,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.12.0")
 
     // kotlin corourtines testing
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
 
     // android test implementation
     val androidTestImpVer = "1.5.0"
