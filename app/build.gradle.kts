@@ -77,6 +77,9 @@ dependencies {
     kapt ("androidx.room:room-compiler:$room_version")
     implementation ("androidx.room:room-ktx:$room_version")
 
+    // view Model
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
+
     // work
     implementation ("androidx.work:work-runtime-ktx:2.9.0")
 
