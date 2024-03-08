@@ -22,15 +22,19 @@ class Fragment1 : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_1, container, false)
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.data.observe(requireActivity()) {
-            if (it.isNotEmpty()) {
+            if (it.isNotEmpty() && activity != null) {
                 binding.recyclerView.apply {
                     layoutManager =(LinearLayoutManager(requireContext()))
                     adapter = MainAdapter(it)
                 }
             }
         }
-
         binding.btF2.setOnClickListener(View.OnClickListener {
             val bundle = Bundle()
             val fragment = Fragment2()
@@ -38,6 +42,5 @@ class Fragment1 : Fragment() {
             fragment.arguments  = bundle
             parentFragmentManager.beginTransaction().replace(R.id.container_fragment, fragment).addToBackStack("Fragment2").commit()
         })
-        return binding.root
     }
 }
