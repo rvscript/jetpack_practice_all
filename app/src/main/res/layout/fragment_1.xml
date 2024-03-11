@@ -4,20 +4,44 @@
     tools:context=".ui.Fragment1">
 
     <LinearLayout
+        android:id="@+id/layoutFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/layoutFragment"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:id="@+id/recycler_view" />
+            android:layout_weight="1" />
+
         <Button
+            android:id="@+id/bt_f2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/bt_f2"
             android:text="go to f2" />
+
+        <TextView
+            android:id="@+id/tv_f1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="set text f1"
+            android:textSize="28sp" />
+
+        <Button
+            android:id="@+id/bt_startThread"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:text="start thread" />
+
+        <Button
+            android:id="@+id/bt_stopThread"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:text="stop thread" />
+
     </LinearLayout>
 </layout>
