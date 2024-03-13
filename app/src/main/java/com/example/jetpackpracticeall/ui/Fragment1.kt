@@ -3,6 +3,7 @@ package com.example.jetpackpracticeall.ui
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Message
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jetpackpracticeall.ui.viewModels.MainViewModel
 import com.example.jetpackpracticeall.R
 import com.example.jetpackpracticeall.databinding.Fragment1Binding
+import com.example.jetpackpracticeall.utils.LooperThread
 import kotlinx.coroutines.delay
 import javax.security.auth.login.LoginException
 
@@ -23,9 +25,12 @@ class Fragment1 : Fragment(){
     lateinit var viewModel: MainViewModel
     lateinit var handler: Handler
     private var count = 0
+    lateinit var looperThread: LooperThread
     companion object {
         const val TAG = "threadLoops"
     }
+    var isStopLoop = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,12 +39,13 @@ class Fragment1 : Fragment(){
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_1, container, false)
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         handler = Handler(Looper.getMainLooper())
+        looperThread = LooperThread()
+        looperThread.start()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var isStopLoop = false
         viewModel.data.observe(requireActivity()) {
             if (it.isNotEmpty() && activity != null) {
                 binding.recyclerView.apply {
@@ -78,8 +84,38 @@ class Fragment1 : Fragment(){
             }.start()
         }
 
+        binding.btStartThread2.setOnClickListener {
+            executeOnCustomLooper()
+        }
+
         binding.btStopThread.setOnClickListener {
             isStopLoop = false
         }
+    }
+
+    private fun executeOnCustomLooper() {
+        isStopLoop = true
+        Thread {
+            run {
+                while (isStopLoop) {
+                    try {
+                        Log.i(TAG, "ThreadId of thread Sending Message: ${Thread.currentThread().id}")
+                        Thread.sleep(1000)
+                        count++
+                        val message = Message()
+                        message.obj = "$count"
+                        looperThread.myHandler.sendMessage(message)
+                    } catch (e: InterruptedException) {
+                        Log.i(TAG, "executeOnCustomLooper: Thread Interrupted")
+                    }
+                }
+            }
+        }.start()
+    }
+
+    private fun getMessageWithCount(count: String): Message {
+        val message = Message()
+        message.obj = "$count"
+        return message
     }
 }

@@ -37,6 +37,13 @@
             android:text="start thread" />
 
         <Button
+            android:id="@+id/bt_startThread2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:text="start custom looper" />
+
+        <Button
             android:id="@+id/bt_stopThread"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
