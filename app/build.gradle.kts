@@ -61,6 +61,9 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:$coroutineLifecycleVersion")
     implementation ("androidx.activity:activity-ktx:1.8.2")
 
+    // Glide
+    implementation ("com.github.bumptech.glide:glide:4.11.0")
+
     // live-data
     val lifecycle_version = "2.7.0"
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
@@ -69,6 +72,8 @@ dependencies {
     val retrofitVer = "2.9.0"
     implementation ("com.squareup.retrofit2:retrofit:$retrofitVer")
     implementation ("com.squareup.retrofit2:converter-gson:$retrofitVer")
+    implementation ("com.squareup.retrofit2:converter-moshi:2.6.2")
+
     implementation ("com.squareup.okhttp3:okhttp:4.9.3")
 
     // Room
