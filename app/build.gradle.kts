@@ -39,6 +39,12 @@ android {
     dataBinding {
         enable = true
     }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
